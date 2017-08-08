@@ -23,3 +23,11 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-dontwarn com.google.common.**
+-keep class com.google.common.** { *; }
+-keep interface com.google.common.** { *; }
+
+-dontwarn com.google.errorprone.**
+-keep class com.google.errorprone.** { *; }
+-keep interface com.google.errorprone.** { *; }
