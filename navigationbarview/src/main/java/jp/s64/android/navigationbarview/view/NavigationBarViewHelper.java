@@ -142,6 +142,12 @@ public class NavigationBarViewHelper<SELF extends View & INavigationBarView & Na
     }
 
     @Deprecated
+    @Override
+    public void uncheck() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Deprecated
     @Nullable
     @Override
     public View getItemView(@IdRes int idRes) {

@@ -203,6 +203,11 @@ public class BottomNavigationBarView extends FrameLayout implements INavigationB
         mItemsContainer.check(idRes);
     }
 
+    @Override
+    public void uncheck() {
+        mItemsContainer.clearCheck();
+    }
+
     @Nullable
     @Override
     public View getItemView(@IdRes int idRes) {

@@ -42,6 +42,8 @@ public interface INavigationBarView extends INavigationBarTransitionView {
 
     void check(@IdRes int idRes);
 
+    void uncheck();
+
     @Nullable
     View getItemView(@IdRes int idRes);
 
