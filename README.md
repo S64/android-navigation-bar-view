@@ -2,6 +2,8 @@
 
 An example project / library of customizable Bottom Navigation
 
+<img src="assets/screenshot1.png" width="250"/> <img src="assets/screenshot2.png" width="250"/>
+
 This is contains below components:
 
 - BottomNavigationBarView
