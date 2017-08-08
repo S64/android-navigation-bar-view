@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="item_min_width">@dimen/horizontal_height</dimen>
+
+    <dimen name="inactive_item_max_width">96dp</dimen>
+    <dimen name="active_item_max_width">168dp</dimen>
+
+    <dimen name="item_icon_size">24dp</dimen>
+
+    <dimen name="active_item_with_text_top_padding">6dp</dimen>
+    <dimen name="inactive_item_with_text_top_padding">8dp</dimen>
+
+    <dimen name="item_with_text_above_padding">6dp</dimen>
+    <dimen name="item_with_text_under_padding">10dp</dimen>
+    <dimen name="item_without_text_under_padding">0dp</dimen>
+
+    <item name="active_item_with_text_text_scale" format="float" type="dimen">1.2</item>
+    <item name="inactive_item_with_text_text_scale" format="float" type="dimen">1.0</item>
+    <item name="item_without_text_text_scale" format="float" type="dimen">1.0</item>
+
+    <dimen name="item_text_size">12sp</dimen>
+
+    <dimen name="item_horizontal_padding">12dp</dimen>
+
+    <dimen name="horizontal_height">56dp</dimen>
+    <dimen name="horizontal_elevation">8dp</dimen>
+
+    <dimen name="item_badge_size">16dp</dimen>
+    <dimen name="item_badge_text_size">10sp</dimen>
+
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="menu_item_0" type="id" />
+    <item name="menu_item_1" type="id" />
+    <item name="menu_item_2" type="id" />
+    <item name="menu_item_3" type="id" />
+    <item name="menu_item_4" type="id" />
+
+    <item name="menu_item_text_0" type="id" />
+    <item name="menu_item_text_1" type="id" />
+    <item name="menu_item_text_2" type="id" />
+    <item name="menu_item_text_3" type="id" />
+    <item name="menu_item_text_4" type="id" />
+
+    <item name="text_mode_always" type="id" />
+    <item name="text_mode_disable" type="id" />
+    <item name="text_mode_only_active" type="id" />
+
+</resources>

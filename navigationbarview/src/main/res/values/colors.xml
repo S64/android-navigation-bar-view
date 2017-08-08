@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="item_badge_background_color">#E04747</color>
+    <color name="item_badge_text_color">#ffffff</color>
+
+</resources>
