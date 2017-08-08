@@ -75,6 +75,7 @@ dependencies {
     })
 
     testCompile "junit:junit:${junit_version}"
+    compile "com.google.firebase:firebase-crash:${firebase_library_version}"
 
     compile project(':navigationbarview')
 }
