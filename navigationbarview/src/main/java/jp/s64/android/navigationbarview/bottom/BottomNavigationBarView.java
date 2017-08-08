@@ -70,6 +70,8 @@ public class BottomNavigationBarView extends FrameLayout implements INavigationB
     @Nullable
     private ValueAnimator mHideAnimator = null;
 
+    private OnLayoutChangeListener mInitialLayoutListener;
+
     public BottomNavigationBarView(@NonNull Context context) {
         super(context, null);
         init(null, 0, 0);
@@ -92,6 +94,16 @@ public class BottomNavigationBarView extends FrameLayout implements INavigationB
     }
 
     protected void init(@Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+        {
+            mInitialLayoutListener = new OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                    removeOnLayoutChangeListener(mInitialLayoutListener);
+                    add(); // empty adding
+                }
+            };
+            addOnLayoutChangeListener(mInitialLayoutListener);
+        }
         {
             mInactiveMinWidth = getResources().getDimensionPixelSize(R.dimen.item_min_width);
             mInactiveMaxWidth = getResources().getDimensionPixelSize(R.dimen.inactive_item_max_width);
