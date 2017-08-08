@@ -337,6 +337,12 @@ public class BottomNavigationBarView extends FrameLayout implements INavigationB
         return getTranslationY() == 0;
     }
 
+    @IdRes
+    @Override
+    public int getChecked() {
+        return mItemsContainer.getCheckedRadioButtonId();
+    }
+
     @Override
     public void onItemsChanged(ImmutableList<INavigationBarItem> oldItems, ImmutableList<INavigationBarItem> newItems) {
         {

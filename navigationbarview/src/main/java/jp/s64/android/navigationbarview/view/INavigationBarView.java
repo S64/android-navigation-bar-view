@@ -53,6 +53,9 @@ public interface INavigationBarView extends INavigationBarTransitionView {
 
     boolean isNavigationBarShown();
 
+    @IdRes
+    int getChecked();
+
     interface OnCheckChangeListener {
 
         void onCheckChanged(@IdRes int oldIdRes, @IdRes int newIdRes);

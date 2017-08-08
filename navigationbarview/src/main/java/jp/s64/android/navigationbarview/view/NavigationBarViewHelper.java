@@ -171,6 +171,12 @@ public class NavigationBarViewHelper<SELF extends View & INavigationBarView & Na
         throw new UnsupportedOperationException();
     }
 
+    @Deprecated
+    @Override
+    public int getChecked() {
+        throw new UnsupportedOperationException();
+    }
+
     public void onItemsChanged(ViewGroup container, ImmutableList<INavigationBarItem> oldItems, ImmutableList<INavigationBarItem> newItems) {
         assertLessThanMaxSize(newItems.size());
         //assertMoreThanMinSize(newItems.size());
