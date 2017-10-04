@@ -145,8 +145,10 @@ public class BottomNavigationBarView extends FrameLayout implements INavigationB
             try {
                 a = getContext().obtainStyledAttributes(attrs, R.styleable.BottomNavigationBarView, defStyleAttr, defStyleRes);
                 {
-                    float elevation = a.getDimension(R.styleable.BottomNavigationBarView_android_elevation, defaultElevation);
-                    ViewCompat.setElevation(this, elevation);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        float elevation = a.getDimension(R.styleable.BottomNavigationBarView_android_elevation, defaultElevation);
+                        ViewCompat.setElevation(this, elevation);
+                    }
                 }
                 {
                     int orientation = a.getInteger(R.styleable.BottomNavigationBarView_android_orientation, RadioGroup.HORIZONTAL);
