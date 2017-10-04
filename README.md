@@ -19,7 +19,7 @@ Add following lines to your buildscripts.
 ```groovy
 buildscript {
     ext {
-        navigation_bar_view_version = '0.0.5'
+        navigation_bar_view_version = '0.0.6'
     }
 }
 ```

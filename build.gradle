@@ -25,8 +25,8 @@ allprojects {
         maven { url 'http://dl.bintray.com/s64/maven' }
     }
     ext {
-        navigation_bar_view_version_name = '0.0.5'
-        android_version_code = 5
+        navigation_bar_view_version_name = '0.0.6'
+        android_version_code = 6
 
         artifact_group = 'jp.s64.android'
         site_url = 'https://github.com/S64/android-navigation-bar-view'
