@@ -19,7 +19,7 @@ Add following lines to your buildscripts.
 ```groovy
 buildscript {
     ext {
-        navigation_bar_view_version = '0.0.6'
+        navigation_bar_view_version = '0.0.7'
     }
 }
 ```
@@ -39,6 +39,7 @@ dependencies {
 ## Apps using android-navigation-bar-view
 
 - [Wantedly Visit](https://play.google.com/store/apps/details?id=com.wantedly.android.visit) & [Intern](https://play.google.com/store/apps/details?id=com.wantedly.android.student)
+- [Balloon](https://play.google.com/store/apps/details?id=jp.co.fowd.balloon)
 
 ## Donate
 
