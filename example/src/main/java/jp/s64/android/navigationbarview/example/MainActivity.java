@@ -26,6 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -148,7 +149,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         final int id = INDEX_ID_PAIRS.get(mNavigation.size());
-        MyItem ret = new MyItem(this, id, textMode);
+        final Integer iconPixelSize;
+        {
+            EditText input = (EditText) findViewById(R.id.icon_size_input);
+            String str = input.getText().toString();
+            if (str != null && str.length() > 0) {
+                iconPixelSize = Integer.valueOf(str);
+            } else {
+                iconPixelSize = null;
+            }
+        }
+        MyItem ret = new MyItem(this, id, textMode) {
+
+            @Nullable
+            @Override
+            public Integer getIconPixelSize() {
+                return iconPixelSize;
+            }
+
+        };
         {
             ret.setBadgeText(String.valueOf(1));
         }

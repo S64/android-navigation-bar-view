@@ -39,6 +39,9 @@ public interface INavigationBarItem {
 
     void onItemViewRemoved(View removedView);
 
+    @Nullable
+    Integer getIconPixelSize();
+
     class IconAnimator {
 
         public final boolean isChecked;

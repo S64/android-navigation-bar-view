@@ -89,4 +89,10 @@ public abstract class AbsNavigationBarItem implements INavigationBarItem {
     @ColorInt
     public abstract int getColorInt(boolean isChecked);
 
+    @Nullable
+    @Override
+    public Integer getIconPixelSize() {
+        return null;
+    }
+
 }

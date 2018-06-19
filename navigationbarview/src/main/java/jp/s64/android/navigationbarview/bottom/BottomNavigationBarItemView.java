@@ -247,11 +247,12 @@ public class BottomNavigationBarItemView extends RadioFrameLayout implements INa
                                 mImageWrapper.removeView(view);
                             }
                         }
+                        Integer iconSize = mItem.getIconPixelSize();
                         newIcon = mItem.updateIcon(
                                 original,
                                 getContext(),
-                                getResources().getDimensionPixelSize(R.dimen.item_icon_size),
-                                getResources().getDimensionPixelSize(R.dimen.item_icon_size),
+                                iconSize != null ? iconSize : getResources().getDimensionPixelSize(R.dimen.item_icon_size),
+                                iconSize != null ? iconSize : getResources().getDimensionPixelSize(R.dimen.item_icon_size),
                                 new INavigationBarItem.IconAnimator(isChecked, oldIsChecked, animation.getAnimatedFraction())
                         );
                         if (original != newIcon) {
