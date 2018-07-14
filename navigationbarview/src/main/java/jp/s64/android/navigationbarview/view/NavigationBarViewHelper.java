@@ -26,6 +26,7 @@ import android.widget.Checkable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +34,7 @@ import java.util.Locale;
 
 import jp.s64.android.navigationbarview.R;
 import jp.s64.android.navigationbarview.item.INavigationBarItem;
+import jp.s64.android.radiobuttonextended.core.widget.CompoundFrameLayoutRadioGroup;
 
 public class NavigationBarViewHelper<SELF extends View & INavigationBarView & NavigationBarViewHelper.IListener<ITEM>, ITEM extends View & Checkable & INavigationBarItemView> implements INavigationBarView {
 
@@ -115,6 +117,23 @@ public class NavigationBarViewHelper<SELF extends View & INavigationBarView & Na
     }
 
     @Override
+    public void replace(int index, INavigationBarItem item) {
+        ImmutableList<INavigationBarItem> oldItems;
+        List<INavigationBarItem> newItems;
+        {
+            oldItems = ImmutableList.copyOf(mItems);
+        }
+        {
+            newItems = new ArrayList<>(oldItems);
+            newItems.remove(index);
+            newItems.add(index, item);
+        }
+        {
+            self.onItemsChanged(oldItems, ImmutableList.copyOf(newItems));
+        }
+    }
+
+    @Override
     public int size() {
         return mItems.size();
     }
@@ -183,7 +202,7 @@ public class NavigationBarViewHelper<SELF extends View & INavigationBarView & Na
         throw new UnsupportedOperationException();
     }
 
-    public void onItemsChanged(ViewGroup container, ImmutableList<INavigationBarItem> oldItems, ImmutableList<INavigationBarItem> newItems) {
+    public void onItemsChanged(CompoundFrameLayoutRadioGroup container, ImmutableList<INavigationBarItem> oldItems, ImmutableList<INavigationBarItem> newItems) {
         assertLessThanMaxSize(newItems.size());
         //assertMoreThanMinSize(newItems.size());
 
@@ -203,7 +222,8 @@ public class NavigationBarViewHelper<SELF extends View & INavigationBarView & Na
             if (newItem == null) {
                 pendingRemoveViews.add(container.getChildAt(i));
             } else if (oldItems.indexOf(newItem) != i) {
-                View newView = self.createItemView(newItem), placedView = container.getChildAt(i);
+                View newView = self.createItemView(newItem, container.getCheckedRadioButtonId() == newItem.getIdRes()),
+                        placedView = container.getChildAt(i);
                 {
                     container.addView(newView, i);
                     newItem.onItemViewCreated(newView);
@@ -274,7 +294,7 @@ public class NavigationBarViewHelper<SELF extends View & INavigationBarView & Na
 
         void onItemsChanged(ImmutableList<INavigationBarItem> oldItems, ImmutableList<INavigationBarItem> newItems);
 
-        ITEM createItemView(INavigationBarItem item);
+        ITEM createItemView(INavigationBarItem item, boolean isChecked);
 
     }
 

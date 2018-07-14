@@ -32,6 +32,8 @@ public interface INavigationBarView extends INavigationBarTransitionView {
 
     void remove(int index);
 
+    void replace(int index, INavigationBarItem item);
+
     int size();
 
     void setItemLimit(@Nullable Integer min, @Nullable Integer max);

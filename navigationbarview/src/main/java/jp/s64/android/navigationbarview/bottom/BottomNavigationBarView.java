@@ -181,6 +181,11 @@ public class BottomNavigationBarView extends FrameLayout implements INavigationB
     }
 
     @Override
+    public void replace(int index, INavigationBarItem item) {
+        mHelper.replace(index, item);
+    }
+
+    @Override
     public int size() {
         return mHelper.size();
     }
@@ -387,13 +392,14 @@ public class BottomNavigationBarView extends FrameLayout implements INavigationB
     }
 
     @Override
-    public BottomNavigationBarItemView createItemView(INavigationBarItem item) {
+    public BottomNavigationBarItemView createItemView(INavigationBarItem item, boolean isChecked) {
         BottomNavigationBarItemView ret = new BottomNavigationBarItemView(getContext());
         FrameLayout.LayoutParams params;
         {
             params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         }
         {
+            ret.setChecked(isChecked);
             ret.setLayoutParams(params);
             ret.setItem(item);
         }

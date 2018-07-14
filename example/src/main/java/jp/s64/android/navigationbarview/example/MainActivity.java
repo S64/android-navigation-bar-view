@@ -46,13 +46,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final Map<Integer, AbsBadgeNavigationBarItem> ID_ITEM_PAIRS = new HashMap<>();
 
     private BottomNavigationBarView mNavigation;
-    private Button mAdd, mRemove;
+    private Button mAdd, mRemove, mUncheck;
 
     private RadioGroup mTextModeGroup;
     private RadioGroup mWeightModeGroup;
 
     private RadioGroup mBehaviorModeGroup;
     private RadioGroup mLayoutModeGroup;
+
+    private RadioGroup mIconModeGroup;
+
+    private boolean mIconModeIsTintable = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             mAdd = (Button) findViewById(R.id.add);
             mRemove = (Button) findViewById(R.id.remove);
+            mUncheck = (Button) findViewById(R.id.uncheck_all);
         }
         {
             mTextModeGroup = (RadioGroup) findViewById(R.id.text_mode_group);
@@ -79,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             mBehaviorModeGroup = (RadioGroup) findViewById(R.id.behavior_mode_group);
             mLayoutModeGroup = (RadioGroup) findViewById(R.id.layout_mode_group);
+        }
+        {
+            mIconModeGroup = (RadioGroup) findViewById(R.id.icon_mode_group);
         }
         for (MyItem.TextMode mode : MyItem.TextMode.values()) {
             RadioButton radio = new RadioButton(this);
@@ -96,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             mAdd.setOnClickListener(this);
             mRemove.setOnClickListener(this);
+            mUncheck.setOnClickListener(this);
         }
         {
             mTextModeGroup.setOnCheckedChangeListener(this);
@@ -114,6 +123,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mBehaviorModeGroup.check(R.id.layout_mode_show);
         }
         {
+            mIconModeGroup.setOnCheckedChangeListener(this);
+            mIconModeGroup.check(R.id.icon_mode_tintable);
+        }
+        {
             mNavigation.setItemLimit(0, null);
             mNavigation.setOnCheckChangedListener(this);
         }
@@ -128,10 +141,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mNavigation.add(createItem());
         } else if (v == mRemove) {
             mNavigation.remove(mNavigation.size() - 1);
+        } else if (v == mUncheck) {
+            mNavigation.uncheck();
         }
         {
             resetButtonState();
         }
+    }
+
+    private void refreshItems() {
+        for (int i = 0; i < mNavigation.size(); i++) {
+            mNavigation.replace(i, createItem(i));
+        }
+        resetButtonState();
     }
 
     protected void resetButtonState() {
@@ -142,13 +164,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected INavigationBarItem createItem() {
+        return createItem(mNavigation.size());
+    }
+
+    protected INavigationBarItem createItem(int i) {
         MyItem.TextMode textMode = MyItem.TextMode.ONLY_ACTIVE;
         for (MyItem.TextMode mode : MyItem.TextMode.values()) {
             if (mode.radioIdRes == mTextModeGroup.getCheckedRadioButtonId()) {
                 textMode = mode;
             }
         }
-        final int id = INDEX_ID_PAIRS.get(mNavigation.size());
+        final int id = INDEX_ID_PAIRS.get(i);
         final Integer iconPixelSize;
         {
             EditText input = (EditText) findViewById(R.id.icon_size_input);
@@ -167,6 +193,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return iconPixelSize;
             }
 
+            @Override
+            public int getDrawableIdRes(boolean isChecked) {
+                if (mIconModeIsTintable)
+                    return R.drawable.ic_account_circle_black;
+                else
+                    return isChecked ? R.mipmap.ic_rasterized_active : R.mipmap.ic_rasterized_inactive;
+            }
+
+            @Nullable
+            @Override
+            public Integer getColorInt(boolean isChecked) {
+                if (mIconModeIsTintable)
+                    return getMyColor(isChecked);
+                else
+                    return null;
+            }
+
         };
         {
             ret.setBadgeText(String.valueOf(1));
@@ -182,7 +225,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String.format(Locale.ROOT, "%d -> %d", oldIdRes, newIdRes),
                 Toast.LENGTH_SHORT
         ).show();
-        ID_ITEM_PAIRS.get(newIdRes).setBadgeText(null);
+        if (ID_ITEM_PAIRS.containsKey(newIdRes)) {
+            ID_ITEM_PAIRS.get(newIdRes).setBadgeText(null);
+        }
     }
 
     @Override
@@ -222,10 +267,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     });
                     break;
             }
+        } else if (group == mIconModeGroup) {
+            switch (checkedId) {
+                case R.id.icon_mode_rasterized:
+                    mIconModeIsTintable = false;
+                    break;
+                case R.id.icon_mode_tintable:
+                default:
+                    mIconModeIsTintable = true;
+                    break;
+            }
+            refreshItems();
         }
     }
 
-    public static class MyItem extends AbsBadgeNavigationBarItem {
+    public static abstract class MyItem extends AbsBadgeNavigationBarItem {
 
         private final Context context;
 
@@ -280,17 +336,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return getMyColor(isChecked);
         }
 
-        @Override
-        public int getDrawableIdRes() {
-            return R.drawable.ic_account_circle_black;
-        }
-
-        @Override
-        public int getColorInt(boolean isChecked) {
-            return getMyColor(isChecked);
-        }
-
-        protected int getMyColor(boolean isChecked) {
+        protected Integer getMyColor(boolean isChecked) {
             return ContextCompat.getColor(
                     context,
                     isChecked ? R.color.menu_enabled : R.color.menu_disabled

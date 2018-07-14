@@ -6,7 +6,7 @@ An example project / library of customizable Bottom Navigation
 
 ![](assets/screenrecord1.gif)
 
-<img src="assets/screenshot1.png" width="250"/> <img src="assets/screenshot2.png" width="250"/>
+<img src="assets/screenshot1.png" width="250"/> <img src="assets/screenshot2.png" width="250"/> <img src="assets/screenshot3.png" width="250"/>
 
 This is contains below components:
 
@@ -19,7 +19,7 @@ Add following lines to your buildscripts.
 ```groovy
 buildscript {
     ext {
-        navigation_bar_view_version = '0.0.7'
+        navigation_bar_view_version = '0.0.8'
     }
 }
 ```

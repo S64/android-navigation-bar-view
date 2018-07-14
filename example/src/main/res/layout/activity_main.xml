@@ -58,13 +58,20 @@
 
                     <EditText
                         android:id="@+id/icon_size_input"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="15"
                         android:lines="1"
                         android:hint="Icon size (empty to default)"/>
 
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/uncheck_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="Uncheck"/>
 
             </LinearLayout>
 
@@ -143,6 +150,32 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="hide" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/icon_mode_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="#09000000"
+                android:orientation="horizontal"
+                android:paddingBottom="24dp"
+                android:paddingTop="24dp">
+
+                <RadioButton
+                    android:id="@+id/icon_mode_tintable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="tintable" />
+
+                <RadioButton
+                    android:id="@+id/icon_mode_rasterized"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="rasterized" />
 
             </RadioGroup>
 
