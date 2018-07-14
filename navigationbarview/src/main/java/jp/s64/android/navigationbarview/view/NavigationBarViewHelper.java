@@ -34,6 +34,7 @@ import java.util.Locale;
 
 import jp.s64.android.navigationbarview.R;
 import jp.s64.android.navigationbarview.item.INavigationBarItem;
+import jp.s64.android.radiobuttonextended.core.widget.CompoundFrameLayoutRadioGroup;
 
 public class NavigationBarViewHelper<SELF extends View & INavigationBarView & NavigationBarViewHelper.IListener<ITEM>, ITEM extends View & Checkable & INavigationBarItemView> implements INavigationBarView {
 
@@ -201,7 +202,7 @@ public class NavigationBarViewHelper<SELF extends View & INavigationBarView & Na
         throw new UnsupportedOperationException();
     }
 
-    public void onItemsChanged(ViewGroup container, ImmutableList<INavigationBarItem> oldItems, ImmutableList<INavigationBarItem> newItems) {
+    public void onItemsChanged(CompoundFrameLayoutRadioGroup container, ImmutableList<INavigationBarItem> oldItems, ImmutableList<INavigationBarItem> newItems) {
         assertLessThanMaxSize(newItems.size());
         //assertMoreThanMinSize(newItems.size());
 
@@ -221,7 +222,8 @@ public class NavigationBarViewHelper<SELF extends View & INavigationBarView & Na
             if (newItem == null) {
                 pendingRemoveViews.add(container.getChildAt(i));
             } else if (oldItems.indexOf(newItem) != i) {
-                View newView = self.createItemView(newItem), placedView = container.getChildAt(i);
+                View newView = self.createItemView(newItem, container.getCheckedRadioButtonId() == newItem.getIdRes()),
+                        placedView = container.getChildAt(i);
                 {
                     container.addView(newView, i);
                     newItem.onItemViewCreated(newView);
@@ -292,7 +294,7 @@ public class NavigationBarViewHelper<SELF extends View & INavigationBarView & Na
 
         void onItemsChanged(ImmutableList<INavigationBarItem> oldItems, ImmutableList<INavigationBarItem> newItems);
 
-        ITEM createItemView(INavigationBarItem item);
+        ITEM createItemView(INavigationBarItem item, boolean isChecked);
 
     }
 
