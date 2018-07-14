@@ -46,28 +46,43 @@ public abstract class AbsNavigationBarItem implements INavigationBarItem {
             {
                 img.setLayoutParams(params);
                 img.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                img.setImageResource(getDrawableIdRes());
             }
             ret.addView(img);
         } else {
             ret = (RelativeLayout) original;
             img = (AppCompatImageView) ret.getChildAt(0);
         }
-        int colorInt;
+        {
+            img.setImageResource(getDrawableIdRes(animator.isChecked));
+        }
+        Integer colorInt;
         if (animator.isChecked != animator.oldIsChecked) {
             ArgbEvaluator ev = new ArgbEvaluator();
-            colorInt = (int) ev.evaluate(
-                    animator.fraction,
-                    getColorInt(animator.oldIsChecked),
-                    getColorInt(animator.isChecked)
-            );
+            Integer before, after;
+            {
+                before = getColorInt(animator.oldIsChecked);
+                after = getColorInt(animator.isChecked);
+            }
+            if (before != null && after != null) {
+                colorInt = (int) ev.evaluate(
+                        animator.fraction,
+                        before,
+                        after
+                );
+            } else {
+                colorInt = null;
+            }
         } else {
             colorInt = getColorInt(animator.isChecked);
         }
         {
             Drawable d = DrawableCompat.wrap(img.getDrawable()).mutate();
-            DrawableCompat.setTint(d, colorInt);
-            DrawableCompat.setTintMode(d, PorterDuff.Mode.SRC_IN);
+            if (colorInt != null) {
+                DrawableCompat.setTint(d, colorInt);
+                DrawableCompat.setTintMode(d, PorterDuff.Mode.SRC_IN);
+            } else {
+                DrawableCompat.setTintList(d, null);
+            }
             img.setImageDrawable(d);
         }
         return ret;
@@ -84,10 +99,11 @@ public abstract class AbsNavigationBarItem implements INavigationBarItem {
     }
 
     @DrawableRes
-    public abstract int getDrawableIdRes();
+    public abstract int getDrawableIdRes(boolean isChecked);
 
+    @Nullable
     @ColorInt
-    public abstract int getColorInt(boolean isChecked);
+    public abstract Integer getColorInt(boolean isChecked);
 
     @Nullable
     @Override

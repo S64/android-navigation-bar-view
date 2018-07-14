@@ -26,6 +26,7 @@ import android.widget.Checkable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -112,6 +113,23 @@ public class NavigationBarViewHelper<SELF extends View & INavigationBarView & Na
     @Override
     public void remove(int index) {
         remove(Lists.newArrayList(mItems).get(index));
+    }
+
+    @Override
+    public void replace(int index, INavigationBarItem item) {
+        ImmutableList<INavigationBarItem> oldItems;
+        List<INavigationBarItem> newItems;
+        {
+            oldItems = ImmutableList.copyOf(mItems);
+        }
+        {
+            newItems = new ArrayList<>(oldItems);
+            newItems.remove(index);
+            newItems.add(index, item);
+        }
+        {
+            self.onItemsChanged(oldItems, ImmutableList.copyOf(newItems));
+        }
     }
 
     @Override

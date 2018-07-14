@@ -181,6 +181,11 @@ public class BottomNavigationBarView extends FrameLayout implements INavigationB
     }
 
     @Override
+    public void replace(int index, INavigationBarItem item) {
+        mHelper.replace(index, item);
+    }
+
+    @Override
     public int size() {
         return mHelper.size();
     }
