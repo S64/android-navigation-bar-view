@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final Map<Integer, AbsBadgeNavigationBarItem> ID_ITEM_PAIRS = new HashMap<>();
 
     private BottomNavigationBarView mNavigation;
-    private Button mAdd, mRemove;
+    private Button mAdd, mRemove, mUncheck;
 
     private RadioGroup mTextModeGroup;
     private RadioGroup mWeightModeGroup;
@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             mAdd = (Button) findViewById(R.id.add);
             mRemove = (Button) findViewById(R.id.remove);
+            mUncheck = (Button) findViewById(R.id.uncheck_all);
         }
         {
             mTextModeGroup = (RadioGroup) findViewById(R.id.text_mode_group);
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             mAdd.setOnClickListener(this);
             mRemove.setOnClickListener(this);
+            mUncheck.setOnClickListener(this);
         }
         {
             mTextModeGroup.setOnCheckedChangeListener(this);
@@ -139,6 +141,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mNavigation.add(createItem());
         } else if (v == mRemove) {
             mNavigation.remove(mNavigation.size() - 1);
+        } else if (v == mUncheck) {
+            mNavigation.uncheck();
         }
         {
             resetButtonState();
@@ -221,7 +225,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String.format(Locale.ROOT, "%d -> %d", oldIdRes, newIdRes),
                 Toast.LENGTH_SHORT
         ).show();
-        ID_ITEM_PAIRS.get(newIdRes).setBadgeText(null);
+        if (ID_ITEM_PAIRS.containsKey(newIdRes)) {
+            ID_ITEM_PAIRS.get(newIdRes).setBadgeText(null);
+        }
     }
 
     @Override
